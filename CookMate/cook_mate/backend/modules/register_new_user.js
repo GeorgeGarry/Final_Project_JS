@@ -1,8 +1,8 @@
-const {db} = require('../../config/db_SQL.js');
+const {db} = require('../config/db_SQL.js');
 
 
 const Register_new_user = async (props) =>{
-    console.log(props);
+    console.log("Register_new_user.js",props);
     const {email,username,password} = props
     try{
         return  db('users')
@@ -10,7 +10,9 @@ const Register_new_user = async (props) =>{
         .returning("*")
         
     }
-    catch(err) {console.log(`from DB:`, err)}
+    catch(err) {
+        console.log(`from registe_new_user:`, err);
+    }
 
 }
 

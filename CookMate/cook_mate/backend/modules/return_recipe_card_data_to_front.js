@@ -2,12 +2,15 @@
 const return_recipe_card_data_to_front = async (json_req, ai = false) => {
     const cards_result = [];
     if (ai) {
-        const parsed_data = JSON.parse(json_req)
+        console.log(`!!!!!!should be an array of 2`,json_req);
+        const parsed_data = JSON.parse(json_req[0])
+        const image_url = json_req[1]
+        // console.log(image_url);
         console.log("we reeived an AI recipe: ", parsed_data);
         const one_card = {
             dish_id: parsed_data.dish_id,
             dish_title: parsed_data.dish_title,
-            // dish_image: parsed_data.image,
+            dish_image: image_url,
             dish_prep_time: parsed_data.dish_prep_time,
             dish_ingridients: parsed_data.dish_ingridients,
             equipment: parsed_data.equipment,

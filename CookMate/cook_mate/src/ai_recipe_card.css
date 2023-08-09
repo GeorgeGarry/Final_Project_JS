@@ -1,0 +1,53 @@
+.recipe-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20%;
+  }
+  
+  .recipe-card h4 {
+    margin-top: 0;
+  }
+  
+  .dish-image {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .instructions-list {
+    text-align: left;
+    list-style-type: decimal;
+    padding-left: 20px;
+  }
+  
+  .ingredients-list {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .equipment-list {
+    list-style-type: square;
+    padding-left: 20px;
+  }
+  
+  .recipe-card p,
+  .recipe-card ul {
+    margin-bottom: 10px;
+  }
+  
+  .recipe-card ul li {
+    margin-left: 10px;
+  }
+  
+  .recipe-card p:first-child {
+    font-weight: bold;
+    margin-top: 0;
+  }
+  

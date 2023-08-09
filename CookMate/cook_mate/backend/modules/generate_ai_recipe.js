@@ -10,7 +10,7 @@ const multer = require('multer')
 const storage = multer.memoryStorage();
 const upload = multer({storage})
 const dotenv = require('dotenv')
-// const s3Client = require('')
+const {uploadJPEGToS3} = require ("./uploadJPEGToS3")
 dotenv.config()
 
 const access_key = process.env.AWS_S3_ACCESS_KEY
@@ -21,9 +21,18 @@ const region = process.env.AWS_S3_REGION
 
 
 const generate_ai_recipe = async (params) => {
+    // console.log("trying upload to bucket test: \n");
+    // const path_tmp_test = "/Users/george/Desktop/Backup_Developers_Institute/Final_Project_JS/Final_Project_JS/CookMate/cook_mate/backend/images/001.jpg"
+    // uploadJPEGToS3("test_img",path_tmp_test)
+    // test_s3()
+    //!!!!!!!!!!!! lines 30-129 commented out to test s3 bucket only
+    
+    const OPEN_AI_KEY = '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'
     const configuration = new Configuration({
-        apiKey: "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"
+        apiKey: OPEN_AI_KEY
     });
+    // const test = process.env.OPEN_AI_KEY
+    // console.log("my openAI api",test);
     const open_ai = new OpenAIApi(configuration);
     const messages = [];
     let equipment_line = '';
@@ -45,7 +54,7 @@ const generate_ai_recipe = async (params) => {
             Try to include as much ingredients in the title as possible.
             What equipment will I need to use?
             Write every step without numbers, for temperature and weights use metric system.
-            Generate random 6 digit dish_id starting with 000
+            Generate random 10 digit dish_id starting with 0
             Respond with a json, like this template:
             {
                 dish_id,
@@ -59,11 +68,12 @@ const generate_ai_recipe = async (params) => {
     })
 
     try {
+        // console.log("generate_ai line 66: ",messages);
         const completion = await open_ai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: messages
         })
-        // console.log(completion);
+        console.log(completion);
         const completion_text = completion.data.choices[0].message.content;
         const dish_AI_title_for_picture = JSON.parse(completion_text).dish_title;
         console.log(dish_AI_title_for_picture);
@@ -75,23 +85,30 @@ const generate_ai_recipe = async (params) => {
             size: '1024x1024'
         })
         const image_url = completion_image.data.data[0].url
-        console.log(image_url);
+        console.log(`my generated image - `,image_url);
         const parsed = url.parse(image_url);
         const img = path.basename(parsed.pathname);
-        const save_directory = '/Users/george/Desktop/Backup_Developers_Institute/Final_Project_JS/Final_Project_JS/CookMate/cook_mate/backend/images';
+        const save_directory = "./images";
         const imgPath = path.join(save_directory, img);
 
         // const save = require('../images')
 
-        axios.get(image_url, { responseType: "stream" })
-            .then(res => {
-                res.data.pipe(fs.createWriteStream(imgPath))
-            })
-            .catch(e => { console.log(e); })
+        // axios.get(image_url, { responseType: "stream" })
+        //     .then(res => {
+        //         res.data.pipe(fs.createWriteStream(imgPath))
+        //     })
+        //     .catch(e => { console.log(e); })
 
 
-        // console.log('the original response from AI',JSON.parse(completion_text).dish_title);
-        return completion_text
+        console.log('the original response from AI',JSON.parse(completion_text).dish_title);
+        console.log("imgPath: ", imgPath);
+        console.log("img: ", img);
+        console.log("imgPath: ", imgPath);
+       
+        
+        // return {completion_text,image_url}
+        // completion_text.replace()
+        return [completion_text,image_url]
     }
     // try{
     //     const completion_image = await open_ai.createImage({
