@@ -6,7 +6,9 @@ const Register_new_user = require('./modules/register_new_user');
 const generate_ai_recipe = require('./modules/generate_ai_recipe');
 const Login = require('./modules/login')
 const { Save_recipe_to_favorites } = require('./modules/save_recipe_to_favorites')
-// const { db } = require('./config/db_SQL.js')
+const { get_user_saved_recipes } = require('./modules/get_user_saved_recipes')
+const { parse_db_recipe_data } = require('./modules/parse_db_recipe_data')
+const { delete_from_favorites } = require('./modules/delete_from_favorites')
 
 
 
@@ -15,7 +17,6 @@ app.use(express.json()); // Parse request body as JSON
 app.post('/', (req, res) => {
 
     console.log('request recieved');
-    // const { dish_type, dish_name, cook_time, meal_type, cuisine } = req.body;
     send_API_request(req.body)
         .then(api_resp => { return return_recipe_card_data_to_front(api_resp) })
         .then(cards => {
@@ -26,25 +27,22 @@ app.post('/', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    // console.log(req.body);
     console.log('registration request recieved', req.body);
 
-    // res.json(Register_new_user(req.body));
     try {
         const register_try = Register_new_user(req.body);
         register_try.then(res => console.log('register try:', res))
+        res.json({message:"Registered succesfully! welcome!"})
     }
     catch (err) {
         console.log(`server error: `, err);
-        res(error);
+        res.json({message:"Sorry, this username or email is already taken!"});
     }
 });
 
 app.post('/login', async (req, res) => {
-    // console.log(req.body);
     console.log('login request recieved', req.body);
 
-    // res.json(Register_new_user(req.body));
     try {
         const login_try = Login(req.body);
 
@@ -71,35 +69,47 @@ app.post('/login', async (req, res) => {
 app.post('/save_favorite', async (req, res) => {
     console.log("server saving favorite", req.body);
     console.log("server saving favorite ingredients", req.body.dish.dish_ingridients[0]);
-    // dish_ingridients
     try {
-        const save_recipe_try =  Save_recipe_to_favorites(req.body);
+        const save_recipe_try = Save_recipe_to_favorites(req.body);
         console.log("line 77 server.js: ", save_recipe_try);
         const resp = await save_recipe_try
-        // console.log("responce on server.js line 79: ", {resp}.message);
-        // res.json({ message: {resp}.message});
-        res.json({ message: resp.message});
-        // save_recipe_try.then(resp => {
-        //     // console.log("responce on server.js line 79: ", resp);
-        //     // if (resp.length > 0) {
-        //     //     const message = "recipe saved"
-        //     //     res.json({ message, resp })
-        //     //     console.log({ message, resp });
-        //     // }
-        //     // console.log('trying save recipe', res)
-        // })
-
+        res.json({ message: resp.message });
     }
     catch (err) {
         console.log(`server error: `, err);
         res(err);
     }
-    
+})
 
+app.post('/delete_favorite', async (req, res) => {
+    console.log("server deliting favorite", req.body);
+    try {
+        const delete_favorite_try = delete_from_favorites(req.body)
+
+        const resp = await delete_favorite_try
+        console.log(delete_favorite_try);
+        res.json({ message: resp.message });
+    }
+    catch (err) {
+        console.log(`server error delete_favorite: `, err);
+        res(err);
+    }
 })
 
 
-
+app.get('/favorites', async (req, res) => {
+    console.log("request received: ", req.query);
+    try {
+        const saved_dishes = await get_user_saved_recipes(req.query.user_id)
+        console.log('got saved dishes on the server: ');
+        const dish_cards_arr = parse_db_recipe_data(saved_dishes)
+        console.log("dish_cards_arr: ", dish_cards_arr);
+        res.json({ message: 'favorites cards received successfully', dish_cards_arr })
+    }
+    catch (err) {
+        console.log('server /favorites error: ', err);
+    }
+})
 
 
 app.get('/', (req, res) => {

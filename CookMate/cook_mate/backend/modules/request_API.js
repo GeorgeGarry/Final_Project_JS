@@ -1,7 +1,5 @@
 const axios = require('axios');
 
-
-
 const send_API_request = async (parameters) => {
     function get_random_ids(res_length, results_on_page) {
         const random_numbers = new Set();

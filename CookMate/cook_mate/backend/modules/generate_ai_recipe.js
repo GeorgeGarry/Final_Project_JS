@@ -1,4 +1,3 @@
-// import { Configuration, OpenAIApi } from "openai";
 const { Configuration } = require('openai');
 const { OpenAIApi } = require('openai');
 const fs = require("fs");
@@ -8,31 +7,18 @@ const url = require("url");
 const axios = require('axios');
 const multer = require('multer')
 const storage = multer.memoryStorage();
-const upload = multer({storage})
+// const upload = multer({storage})
 const dotenv = require('dotenv')
-const {uploadJPEGToS3} = require ("./uploadJPEGToS3")
 dotenv.config()
-
-const access_key = process.env.AWS_S3_ACCESS_KEY
-const secret_access_key = process.env.AMS_S3_SECRET_ACCESS_KEY
-const bucket_name = process.env.AWS_S3_BUCKET_NAME
-const region = process.env.AWS_S3_REGION
 
 
 
 const generate_ai_recipe = async (params) => {
-    // console.log("trying upload to bucket test: \n");
-    // const path_tmp_test = "/Users/george/Desktop/Backup_Developers_Institute/Final_Project_JS/Final_Project_JS/CookMate/cook_mate/backend/images/001.jpg"
-    // uploadJPEGToS3("test_img",path_tmp_test)
-    // test_s3()
-    //!!!!!!!!!!!! lines 30-129 commented out to test s3 bucket only
-    
-    const OPEN_AI_KEY = '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'
+    const OPEN_AI_KEY = process.env.OPEN_AI_KEY
     const configuration = new Configuration({
         apiKey: OPEN_AI_KEY
     });
-    // const test = process.env.OPEN_AI_KEY
-    // console.log("my openAI api",test);
+    
     const open_ai = new OpenAIApi(configuration);
     const messages = [];
     let equipment_line = '';
@@ -68,7 +54,6 @@ const generate_ai_recipe = async (params) => {
     })
 
     try {
-        // console.log("generate_ai line 66: ",messages);
         const completion = await open_ai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: messages
@@ -91,6 +76,7 @@ const generate_ai_recipe = async (params) => {
         const save_directory = "./images";
         const imgPath = path.join(save_directory, img);
 
+            // ⬇️ saving the image for uploading to AWS s3 bucket (to be done later)
         // const save = require('../images')
 
         // axios.get(image_url, { responseType: "stream" })
@@ -100,32 +86,15 @@ const generate_ai_recipe = async (params) => {
         //     .catch(e => { console.log(e); })
 
 
-        console.log('the original response from AI',JSON.parse(completion_text).dish_title);
-        console.log("imgPath: ", imgPath);
-        console.log("img: ", img);
-        console.log("imgPath: ", imgPath);
-       
-        
+        // console.log('the original response from AI',JSON.parse(completion_text).dish_title);
+        // console.log("imgPath: ", imgPath);
+        // console.log("img: ", img);
+        // console.log("imgPath: ", imgPath);
         // return {completion_text,image_url}
-        // completion_text.replace()
+            // ⬆️ saving the image for uploading to AWS s3 bucket (to be done later)
         return [completion_text,image_url]
     }
-    // try{
-    //     const completion_image = await open_ai.createImage({
-    //         prompt:`shakshuka with banana`,
-    //         n:1,
-    //         size:'1024x1024'
-    //     })
-    //     const image_url = completion_image.data.data[0].url
-    //     console.log(image_url);
-    //     const parsed = url.parse(image_url);
-    //     const img = path.basename(parsed.pathname)
-    //     axios.get(image_url, {responseType: "stream"})
-    //         .then(res =>{
-    //             res.data.pipe(fs.createWriteStream(img))
-    //         })
-    //         .catch(e =>{console.log(e);})
-    // }
+   
     catch (e) { console.log(e); }
 
 };

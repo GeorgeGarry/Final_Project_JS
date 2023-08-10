@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import './App.css';
 import './login_register.css';
 import Choice_menu from './components/choice_menu';
@@ -14,33 +13,16 @@ import Login_form from './components/login_form';
 import { useState } from 'react';
 import User_menu from './components/user_drop_down_menu';
 import { useEffect } from 'react'
-// import ReactDOM from 'react-dom';
-// import { Link } from 'react-router-dom';
-
-// const Navigation = () => {
-//   return (
-//     <nav>
-//       <ul>
-//         <li>
-//           <Link to="/">Home</Link>
-//         </li>
-//         <li>
-//           <Link to="/about">About</Link>
-//         </li>
-//       </ul>
-//     </nav>
-//   );
-// };
-
-
+import Favorites_page from './components/favorites_page'
+import About from './components/about';
 
 
 function App() {
   const [seen, setSeen] = useState(false);
-  // const [seen_login, setSeen_login] = useState(false);
   const [username_logged_in, setUsername_logged_in] = useState('');
   const [logged_user_id, setLogged_user_id] = useState('');
-  const  togglePop = () => {
+  const [user_favorite_path, setUser_favorite_path] = useState('')
+  const togglePop = () => {
     console.log("togglePop clicked");
     setSeen(!seen);
   };
@@ -53,11 +35,13 @@ function App() {
     console.log("Welcome", username_logged_in);
   };
 
+
   const user_log_out = () => {
-    localStorage.setItem('username', "");
-    localStorage.setItem('user_id', "");
-  }
-  
+    localStorage.setItem('username', '');
+    localStorage.setItem('user_id', '');
+    setUsername_logged_in('');
+    setLogged_user_id('');
+  };
 
 
   useEffect(() => {
@@ -66,13 +50,17 @@ function App() {
     if (stored_username && stored_user_id) {
       setUsername_logged_in(stored_username);
       setLogged_user_id(stored_user_id);
+      setUser_favorite_path(`/favorites`)
     }
   }, []);
   return (
     <div className="App">
       <header className="App-header">
 
-        <nav>
+        {/* <nav>
+          <ErrorBoundary>
+            <Link to="/about" > About</Link>
+          </ErrorBoundary>
           <ErrorBoundary>
             <Link to="/" > Home</Link>
           </ErrorBoundary>
@@ -88,25 +76,57 @@ function App() {
           <ErrorBoundary>
             {username_logged_in != '' && <div>
               <p>Welcome {username_logged_in}</p>
-              <User_menu user_log_out={user_log_out}/>
+              <User_menu user_log_out={user_log_out} user_id={logged_user_id} />
             </div>}
           </ErrorBoundary>
 
 
+        </nav> */}
+        <nav className="nav-menu"> {/* Added "nav-menu" class */}
+          <ErrorBoundary>
+            <Link className="nav-link" to="/about"> About</Link> {/* Added "nav-link" class */}
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <Link className="nav-link" to="/"> Home</Link> {/* Added "nav-link" class */}
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <Link className="nav-link" to="/AI"> AI recipe generator</Link> {/* Added "nav-link" class */}
+          </ErrorBoundary>
+          <ErrorBoundary>
+            {username_logged_in === '' && (
+              <Link className="nav-link" to="/register" onClick={togglePop}> Register</Link>
+            )}
+          </ErrorBoundary>
+          <ErrorBoundary>
+            {username_logged_in === '' && (
+              <Link className="nav-link" to="/login" onClick={togglePop}> Login</Link>
+            )}
+          </ErrorBoundary>
+          <ErrorBoundary>
+            {username_logged_in !== '' && (
+              <div className="user-info">
+                <p className="user-welcome">Welcome {username_logged_in}</p>
+                <User_menu className="user-menu" user_log_out={user_log_out} user_id={logged_user_id} />
+              </div>
+
+            )}
+          </ErrorBoundary>
         </nav>
       </header>
-
-      <ErrorBoundary>
-        <Routes>
-          <Route path='/register' element={seen ? <Register_form toggle={togglePop} /> : null} />
-          <Route path='/login' element={seen ? <Login_form toggle={togglePop} user_logged_in={user_logged_in} /> : null} />
-          <Route path='/' element={<Choice_menu user_id={logged_user_id} />} />
-          <Route path='/AI' element={<AI_recipe_page />} />
-          {/* <Route path='/favorites' element={} /> */}
-        </Routes>
-      </ErrorBoundary>
-
       <body>
+
+        <ErrorBoundary>
+          <Routes>
+            <Route path='/register' element={seen ? <Register_form toggle={togglePop} /> : null} />
+            <Route path='/login' element={seen ? <Login_form toggle={togglePop} user_logged_in={user_logged_in} /> : null} />
+            <Route path='/' element={<Choice_menu user_id={logged_user_id} />} />
+            <Route path='/AI' element={<AI_recipe_page />} />
+            <Route path='/about' element={<About />} />
+            <Route path={`/favorites/user-${logged_user_id}`} element={<Favorites_page user_id={logged_user_id} />} />
+          </Routes>
+        </ErrorBoundary>
+
+
 
       </body>
     </div>

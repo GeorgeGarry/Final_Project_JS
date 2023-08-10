@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 function Register_form(props) {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
@@ -26,16 +25,16 @@ function Register_form(props) {
             const data = await response.json();
 
             console.log('Received data:', data);
+            alert(data.message)
             props.toggle()
-            // res.status(200).json({ message: 'Data sent successfully' });
         } catch (error) {
             setUser_exists(true);
-            alert("sorry, this email or username already exist")
+            alert(error.message)
             console.log('registration_form error is: ', error);
         }
 
         // Code to handle login goes here
-        // props.toggle
+        props.toggle()
     };
 
     return (

@@ -111,31 +111,31 @@ const Choice_menu = (props) => {
               id="meal_type"
               onChange={(e) => setMeal_type(e.target.value)}
             >
-             <option value="">Any</option>
-                                <option value="antipasti">Antipasti</option>
-                                <option value="antipasto">Antipasto</option>
-                                <option value="appetizer">Appetizer</option>
-                                <option value="beverage">Beverage</option>
-                                <option value="breakfast">Breakfast</option>
-                                <option value="brunch">Brunch</option>
-                                <option value="condiment">Condiment</option>
-                                <option value="dessert">Dessert</option>
-                                <option value="dip">Dip</option>
-                                <option value="drink">Drink</option>
-                                <option value="fingerfood">Finger Food</option>
-                                <option value="hor-doeuvre">Hors d'oeuvre</option>
-                                <option value="main-course">Main Course</option>
-                                <option value="marinade">Marinade</option>
-                                <option value="morning-meal">Morning Meal</option>
-                                <option value="salad">Salad</option>
-                                <option value="sauce">Sauce</option>
-                                <option value="seasoning">Seasoning</option>
-                                <option value="side-dish">Side Dish</option>
-                                <option value="snack">Snack</option>
-                                <option value="soup">Soup</option>
-                                <option value="spread">Spread</option>
-                                <option value="starter">Starter</option>
-                                <option value="marinade">Marinade</option>
+              <option value="">Any</option>
+              <option value="antipasti">Antipasti</option>
+              <option value="antipasto">Antipasto</option>
+              <option value="appetizer">Appetizer</option>
+              <option value="beverage">Beverage</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="brunch">Brunch</option>
+              <option value="condiment">Condiment</option>
+              <option value="dessert">Dessert</option>
+              <option value="dip">Dip</option>
+              <option value="drink">Drink</option>
+              <option value="fingerfood">Finger Food</option>
+              <option value="hor-doeuvre">Hors d'oeuvre</option>
+              <option value="main-course">Main Course</option>
+              <option value="marinade">Marinade</option>
+              <option value="morning-meal">Morning Meal</option>
+              <option value="salad">Salad</option>
+              <option value="sauce">Sauce</option>
+              <option value="seasoning">Seasoning</option>
+              <option value="side-dish">Side Dish</option>
+              <option value="snack">Snack</option>
+              <option value="soup">Soup</option>
+              <option value="spread">Spread</option>
+              <option value="starter">Starter</option>
+              <option value="marinade">Marinade</option>
             </select>
           </div>
           <div className="form-group">
@@ -146,21 +146,21 @@ const Choice_menu = (props) => {
               onChange={(e) => setCuisine(e.target.value)}
             >
               <option value="">All</option>
-                                <option value="American">American</option>
-                                <option value="Asian">Asian</option>
-                                <option value="Cajun">Cajun</option>
-                                <option value="Chinese">Chinese</option>
-                                <option value="Creole">Creole</option>
-                                <option value="European">European</option>
-                                <option value="French">French</option>
-                                <option value="Indian">Indian</option>
-                                <option value="Italian">Italian</option>
-                                <option value="Latin American">Latin American</option>
-                                <option value="Mediterranean">Mediterranean</option>
-                                <option value="Mexican">Mexican</option>
-                                <option value="South American">South American</option>
-                                <option value="Southern">Southern</option>
-                                <option value="Thai">Thai</option>
+              <option value="American">American</option>
+              <option value="Asian">Asian</option>
+              <option value="Cajun">Cajun</option>
+              <option value="Chinese">Chinese</option>
+              <option value="Creole">Creole</option>
+              <option value="European">European</option>
+              <option value="French">French</option>
+              <option value="Indian">Indian</option>
+              <option value="Italian">Italian</option>
+              <option value="Latin American">Latin American</option>
+              <option value="Mediterranean">Mediterranean</option>
+              <option value="Mexican">Mexican</option>
+              <option value="South American">South American</option>
+              <option value="Southern">Southern</option>
+              <option value="Thai">Thai</option>
             </select>
           </div>
           <div className="form-group">
@@ -184,7 +184,7 @@ const Choice_menu = (props) => {
           Look for food!
         </button>
       </div>
-      {received_response && <Recipe_card cards={response_cards} user_id={user_id}/>}
+      {received_response && <Recipe_card cards={response_cards} user_id={user_id} />}
     </div>
   );
 };

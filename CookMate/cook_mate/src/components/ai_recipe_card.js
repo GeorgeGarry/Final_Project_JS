@@ -14,7 +14,7 @@ const AI_RECIPE_CARD = (card) => {
             <div key={dish.dish_id}>
                 <h4>{dish.dish_title}</h4>
                 <img className="dish-image" src={dish.dish_image} alt="no image" />
-                <p>Cooking time: {dish.dish_prep_time} minutes</p>
+                <p>Cooking time: {dish.dish_prep_time}</p>
             </div>
             <div>
                 <ul className="instructions-list">{dish.instructions.instructions.map((step) => (
