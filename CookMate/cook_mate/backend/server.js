@@ -130,7 +130,7 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
-app.use(express.static(path.join(__dirname, "CookMate")));
+app.use(express.static(path.join(__dirname, "/backend")));
 
 app.get("*",(req,res) =>{
     res.sendFile(path.resolve(__dirname, "CookMate/cook_mate", "index.html"));
