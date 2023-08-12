@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { path } = require('path')
+const path = require('path')
 const send_API_request = require('./modules/request_API')
 const return_recipe_card_data_to_front = require('./modules/return_recipe_card_data_to_front')
 const Register_new_user = require('./modules/register_new_user');
