@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+/cook_mate/backend/node_modules
+/cook_mate/backend/.env
 
 # testing
 /coverage

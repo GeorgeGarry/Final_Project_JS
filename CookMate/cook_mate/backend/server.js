@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const { path } = require('path')
 const send_API_request = require('./modules/request_API')
 const return_recipe_card_data_to_front = require('./modules/return_recipe_card_data_to_front')
 const Register_new_user = require('./modules/register_new_user');
@@ -32,11 +33,11 @@ app.post('/register', async (req, res) => {
     try {
         const register_try = Register_new_user(req.body);
         register_try.then(res => console.log('register try:', res))
-        res.json({message:"Registered succesfully! welcome!"})
+        res.json({ message: "Registered succesfully! welcome!" })
     }
     catch (err) {
         console.log(`server error: `, err);
-        res.json({message:"Sorry, this username or email is already taken!"});
+        res.json({ message: "Sorry, this username or email is already taken!" });
     }
 });
 
@@ -127,4 +128,10 @@ app.get('/', (req, res) => {
 const port = 3030;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
+});
+
+app.use(express.static(path.join(__dirname, "CookMate/cook_mate")));
+
+app.get("*",(req,res) =>{
+    res.sendFile(path.resolve(__dirname, "CookMate/cook_mate", "index.html"));
 });
