@@ -133,5 +133,5 @@ app.listen(port, () => {
 app.use(express.static(path.join(__dirname, "/backend")));
 
 app.get("*",(req,res) =>{
-    res.sendFile(path.resolve(__dirname, "CookMate/cook_mate", "index.html"));
+    res.sendFile(path.resolve(__dirname, "CookMate/cook_mate/public", "index.html"));
 });
