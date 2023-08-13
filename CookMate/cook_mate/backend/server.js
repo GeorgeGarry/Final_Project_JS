@@ -104,7 +104,6 @@ app.get('/favorites', async (req, res) => {
         const saved_dishes = await get_user_saved_recipes(req.query.user_id)
         console.log('got saved dishes on the server: ');
         const dish_cards_arr = parse_db_recipe_data(saved_dishes)
-        // console.log("dish_cards_arr: ", dish_cards_arr);
         res.json({ message: 'favorites cards received successfully', dish_cards_arr })
     }
     catch (err) {
