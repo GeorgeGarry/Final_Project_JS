@@ -112,7 +112,7 @@ app.get('/favorites', async (req, res) => {
 })
 
 
-app.get('/', (req, res) => {
+app.get('/AI', (req, res) => {
     console.log('request received');
     generate_ai_recipe(req.query)
         .then(resp_AI => { return return_recipe_card_data_to_front(resp_AI, true) })

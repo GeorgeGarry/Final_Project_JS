@@ -1,12 +1,15 @@
 
 const return_recipe_card_data_to_front = async (json_req, ai = false) => {
+    if (json_req.length == 0){
+        return {message: "no request received"}
+    }
     const cards_result = [];
     if (ai) {
-        console.log(`!!!!!!should be an array of 2`,json_req);
+        // console.log(`!!!!!!should be an array of 2`,json_req);
         const parsed_data = JSON.parse(json_req[0])
         const image_url = json_req[1]
         // console.log(image_url);
-        console.log("we reeived an AI recipe: ", parsed_data);
+        console.log("received an AI recipe: ", parsed_data);
         const one_card = {
             dish_id: parsed_data.dish_id,
             dish_title: parsed_data.dish_title,
