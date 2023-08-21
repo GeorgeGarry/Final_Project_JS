@@ -129,8 +129,8 @@ app.listen(process.env.PORT || 3030, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
 
-app.use(express.static(path.join(__dirname, "/backend")));
+app.use(express.static(path.join(__dirname, "../build")));
 
 app.get("*",(req,res) =>{
-    res.sendFile(path.resolve(__dirname, "../public", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../build", "index.html"));
 });
