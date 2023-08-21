@@ -33,7 +33,7 @@ const Choice_menu = (props) => {
       })
     };
     try {
-      const response = await fetch('http://localhost:3030', request_options);
+      const response = await fetch('https://cookmate.onrender.com', request_options);
       const data = await response.json();
       setReponse_cards(data);
       setReceived_response(true);

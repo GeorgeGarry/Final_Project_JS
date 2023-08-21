@@ -28,7 +28,7 @@ const Recipe_card = (props) => {
             }
 
             // console.log(request_options);
-            const response = await fetch('http://localhost:3030/delete_favorite', request_options);
+            const response = await fetch('https://cookmate.onrender.com/delete_favorite', request_options);
             // console.log('res from db delete favorite: ', response);
             const data = await response.json();
             // console.log('Received data from delete_favorite:', data);
@@ -53,7 +53,7 @@ const Recipe_card = (props) => {
                 })
             };
 
-            const response = await fetch('http://localhost:3030/save_favorite', request_options);
+            const response = await fetch('https://cookmate.onrender.com/save_favorite', request_options);
             // console.log('res from db send_recipe_to_serber_db: ', response);
             const data = await response.json();
             // console.log('Received data  send_recipe_to_serber_db:', data);

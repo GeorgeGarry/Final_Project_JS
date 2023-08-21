@@ -8,7 +8,7 @@ const Favorites_page = (props) => {
 
     console.log(props);
     const user_id = props.user_id
-    const url = 'http://localhost:3030/favorites'
+    const url = 'https://cookmate.onrender.com/favorites'
     console.log(user_id);
     useEffect(() => {
         const fetch_for_user_favorites = async () => {

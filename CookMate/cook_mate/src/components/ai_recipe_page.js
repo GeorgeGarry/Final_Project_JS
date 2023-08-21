@@ -10,7 +10,7 @@ const AI_recipe_page = () => {
     // const image_name="img-OSreKdkUwP46cJjBEzlNFVBq.png"
     // const image_path="CookMate/cook_mate/src/components/img-OSreKdkUwP46cJjBEzlNFVBq.png"
 
-    const url = 'http://localhost:3030';
+    const url = 'https://cookmate.onrender.com/AI';
     const [ingredients_ai, setIngregirnts_ai] = useState('');
     const [equipment_restrictions, setEquipment_restrictions] = useState('');
     const [response_cards, setReponse_cards] = useState('');

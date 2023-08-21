@@ -20,7 +20,7 @@ function Register_form(props) {
         };
         try {
             console.log('req db send');
-            const response = await fetch('http://localhost:3030/register', request_options);
+            const response = await fetch('https://cookmate.onrender.com/register', request_options);
             console.log('res from db:');
             const data = await response.json();
 
