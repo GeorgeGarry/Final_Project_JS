@@ -45,7 +45,7 @@ function Register_form(props) {
                     {user_exists && <p className="error-message">Sorry, this Username or Email already exist</p>}
                     <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
                     <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} />
-                    <input type="text" placeholder="password" value={password} onChange={e => setPassword(e.target.value.toString())} />
+                    <input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value.toString())} />
 
                     <button type="submit">Register</button>
                 </form>
